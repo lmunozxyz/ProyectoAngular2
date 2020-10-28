@@ -1,20 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import{RouterModule, Routes} from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
+//import { AppRoutingModule } from './app-routing.module';  ESTA VARA YA ESTABA POR QUE CUANDO UNO CREA
+// EL ANGULAR LE PREGUNTA SI DESEA AGREGAR EL ROUTE Y SI NO LE DICE QUE SI CREO QUE ESTO SE CREA AUTOMATICAMENTE
+// ENTONCES CON LA LINEA DE CODIGO ANTERIOR LO HACEMOS MANUALMENTE.... ESPERO!
+
+
 import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
 import { ListaDestinosComponent } from './lista-destinos/lista-destinos.component';
+import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home', component: ListaDestinosComponent},
+  { path: 'destino', component: DestinoDetalleComponent},
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DestinoViajeComponent,
-    ListaDestinosComponent
+    ListaDestinosComponent,
+    DestinoDetalleComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
