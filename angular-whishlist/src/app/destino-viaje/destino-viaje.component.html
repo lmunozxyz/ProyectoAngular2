@@ -1,4 +1,3 @@
-
     <div class="card-content">
         <div class="card-img">
             <img src="https://placeimg.com/380/230/nature"	alt="">
@@ -9,6 +8,7 @@
                         
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias quos at voluptates assumenda aut explicabo! Nam nemo eius distinctio delectus esse earum quasi, pariatur quaerat saepe commodi voluptas adipisci velit.</p>
                         
-                        <a	href="#" class="btn-card">Read</a>			
+                        <a	href="#" class="btn-card" (click)="ir()">Ir!</a>
+                        <span [style.display]="destino.isSelected() ? '' : 'none'">PREFERIDO</span>		
                     </div>
     </div>
