@@ -13,7 +13,7 @@ import { ajax, AjaxResponse } from 'rxjs/ajax';
 export class FormDestinoViajeComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   fg:FormGroup;
-  minLongitud = 5;
+  minLongitud = 3;
   searchResults: string[];
 
   constructor(fb: FormBuilder) {
@@ -51,6 +51,7 @@ export class FormDestinoViajeComponent implements OnInit {
         distinctUntilChanged(),
         switchMap(() => ajax('/assets/datos.json'))
       ).subscribe(ajaxResponse => {
+        console.log(ajaxResponse);
         console.log(ajaxResponse.response);
         this.searchResults = ajaxResponse.response;
       });

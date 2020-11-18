@@ -1,10 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
@@ -18,6 +15,9 @@ import {
           reducerDestinosViajes,
           DestinosViajesEffects
         } from './models/destinos-viajes-state.model';
+
+import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
