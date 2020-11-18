@@ -23,5 +23,13 @@ export class DestinoViajeComponent implements OnInit {
   	this.onClicked.emit(this.destino);
   	return false;
   }
+
+  voteUp(){
+    return false;
+  }
+
+  voteDown(){
+    return false;
+  }
 }
 
