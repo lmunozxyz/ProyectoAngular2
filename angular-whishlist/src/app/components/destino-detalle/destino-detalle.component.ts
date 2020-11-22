@@ -24,7 +24,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         animate('1s')
       ]),
     ]
+  
 })
+
 export class DestinoViajeComponent implements OnInit {
   @Input() destino: DestinoViaje;
   @Input("idx") position: number;
