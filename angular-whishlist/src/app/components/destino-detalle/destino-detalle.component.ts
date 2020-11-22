@@ -1,40 +1,55 @@
-import { Component, OnInit, InjectionToken, Inject } from '@angular/core';
-import { DestinosApiClient } from './../../models/destinos-api-client.model';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { DestinoViaje } from './../../models/destino-viaje.model';
-import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.module';
+import { VoteUpAction, VoteDownAction } from '../../models/destinos-viajes-state.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-destino-detalle',
-  templateUrl: './destino-detalle.component.html',
-  styleUrls: ['./destino-detalle.component.css'],
-  providers: [DestinosApiClient]
+  selector: 'app-destino-viaje',
+  templateUrl: './destino-viaje.component.html',
+  styleUrls: ['./destino-viaje.component.css'],
+  animations: [
+    trigger('esFavorito', [
+      state('estadoFavorito', style({
+        backgroundColor: 'PaleTurquoise'
+      })),
+      state('estadoNoFavorito', style({
+        backgroundColor: 'WhiteSmoke'
+      })),
+      transition('estadoNoFavorito => estadoFavorito', [
+        animate('3s')
+      ]),
+      transition('estadoFavorito => estadoNoFavorito', [
+        animate('1s')
+      ]),
+    ]
 })
-export class DestinoDetalleComponent implements OnInit {
-  destino: DestinoViaje;
-  style = {
-    sources: {
-      world: {
-        type: 'geojson',
-        data: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
-      }
-    },
-    version: 8,
-    layers: [{
-      'id': 'countries',
-      'type': 'fill',
-      'source': 'world',
-      'layout': {},
-      'paint': {
-        'fill-color': '#6F788A'
-      }
-    }]
-  };
+export class DestinoViajeComponent implements OnInit {
+  @Input() destino: DestinoViaje;
+  @Input("idx") position: number;
+  @HostBinding('attr.class') cssClass = 'col-md-4';
+  @Output() onClicked: EventEmitter<DestinoViaje>;
 
-  constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClient) {}
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.destino = this.destinosApiClient.getById(id);
+  constructor(private store: Store<AppState>) {
+    this.onClicked = new EventEmitter();
   }
 
+  ngOnInit() {
+  }
+
+  ir() {
+    this.onClicked.emit(this.destino);
+    return false;
+  }
+
+  voteUp() {
+    this.store.dispatch(new VoteUpAction(this.destino));
+    return false;
+  }
+
+  voteDown() {
+    this.store.dispatch(new VoteDownAction(this.destino));
+    return false;
+  }
 }

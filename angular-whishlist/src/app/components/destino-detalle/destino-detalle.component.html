@@ -1,24 +1,30 @@
-<p>
-  Aqui vemos el detalle de un destino de un viaje!
-  <br>
-  {{ destino.id }}
-  <br>
-  {{ destino.nombre }}
-</p>
-<hr>
-<mgl-map
-    [style]="style"
-    [zoom]="[2]"
-    style="height: 50vh; width: 100vw;"
-  >
-  <mgl-marker
-     [lngLat]="[-75.551012, 10.421185]"
-   >
-     <div
-       onclick="alert('Hola')"
-       class="marker"
-     >
-	   Hola mundo!
-     </div>
-   </mgl-marker>
-  </mgl-map>
+<div class="card-content" [@esFavorito]="destino.isSelected() ? 'estadoFavorito' : 'estadoNoFavorito'">
+  <div class="card-img">
+      <img src="https://placeimg.com/380/230/nature" alt="">
+      <span><h4>{{position}}</h4></span>
+  </div>
+  <div class="card-desc">
+      <h3>{{destino.nombre}}</h3>
+      <p>Servicios</p>
+      <div>
+          <a href="#" (click)="voteUp()"><i class="material-icons md-18">thumb_up</i></a>
+          &nbsp;
+          <a href="#" (click)="voteDown()"><i class="material-icons md-18">thumb_down</i></a>
+          &nbsp;
+          Votos: {{destino.votes}}
+      </div>
+      <ul>
+          <li *ngFor="let s of destino.servicios;">
+              <span class="container" [ngSwitch]="s">
+                  <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}} *</i>
+                  <i *ngSwitchDefault>{{ s }}</i>
+              </span>
+          </li>
+      </ul>
+      <a href="#" class="btn-card" (click)="ir()">IR!</a>
+      <span *ngIf="destino.isSelected()">
+          <span ngNonBindable>{{ PREFERIDO! }}</span>
+      </span>
+      <a [routerLink]="['/destino', destino.id]">Ver!</a>
+  </div>
+</div>
